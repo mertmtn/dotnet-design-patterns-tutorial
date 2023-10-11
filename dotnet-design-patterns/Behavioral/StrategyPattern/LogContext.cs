@@ -2,18 +2,26 @@
 {
     class LogContext : ILoggingStrategy
     {
-        ILoggingStrategy _LoggingStrategy;
+        private ILoggingStrategy _loggingStrategy;
 
         public LogContext(ILoggingStrategy loggingStrategy)
         {
-            _LoggingStrategy = loggingStrategy;
-        } 
+            _loggingStrategy = loggingStrategy;
+        }
 
-        public void LogSomething(string logDetails)
+        public void Error(Exception ex, LogInformation logInformation)
         {
-            _LoggingStrategy.LogSomething(logDetails);
+            _loggingStrategy.Error(ex, logInformation);
+        }
+
+        public void Information(LogInformation logInformation)
+        {
+            _loggingStrategy.Information(logInformation);
+        }
+
+        public void Warning(LogInformation logInformation)
+        {
+            _loggingStrategy.Warning(logInformation);
         }
     }
-
-
 }

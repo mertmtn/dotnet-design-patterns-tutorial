@@ -2,6 +2,10 @@
 {
     internal interface ILoggingStrategy
     {
-        void LogSomething(string logDetails);
+        void Error(Exception ex, LogInformation logInformation);
+
+        void Information(LogInformation logInformation);
+
+        void Warning(LogInformation logInformation);
     }
 }
