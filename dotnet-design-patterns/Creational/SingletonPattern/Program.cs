@@ -1,9 +1,9 @@
 ﻿using SingletonPattern;
 
-var personel1 = Personel.PersonelInstance;
-var personel2 = Personel.PersonelInstance;
+var dbConnectionOne = DbConnection.DbConnect;
+var dbConnectionTwo = DbConnection.DbConnect;
 
-Console.WriteLine("Number 1:{0} Number 2:{1}", personel1.Number, personel2.Number);
+Console.WriteLine("Number 1:{0} \nNumber 2:{1}", dbConnectionOne.Number, dbConnectionTwo.Number);
  
-string resultMessage = (personel1 == personel2) ? "Objects are same." : "Objects are not same";
+string resultMessage = (dbConnectionOne == dbConnectionTwo) ? "Objects are same." : "Objects are not same";
 Console.WriteLine(resultMessage);
