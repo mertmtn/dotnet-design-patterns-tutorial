@@ -1,23 +1,32 @@
-﻿namespace AdapterPattern
+﻿using System.Net;
+using System.Text;
+using System.Xml.Serialization;
+
+namespace AdapterPattern
 {
     /// <summary>
     /// Adaptee - Third party library or external API
     /// </summary>
     public class CurrencyExternal
     {
-        public double Convert(double unit, string currency)
-        {
-            return unit / GetCurrencyValue(currency);
-        }
+        readonly Tarih_Date result;
 
-        public double GetCurrencyValue(string currency)
+        public CurrencyExternal()
         {
-            return 20.12;
-        }
+            var xmlSerialize = new XmlSerializer(typeof(Tarih_Date), new XmlRootAttribute("Tarih_Date"));
 
-        public List<string> GetCurrencyList()
+            var client = new WebClient();
+
+            var data = Encoding.Default.GetString(client.DownloadData("https://www.tcmb.gov.tr/kurlar/today.xml"));
+
+            var reader = new MemoryStream(Encoding.Default.GetBytes(data));
+
+            result = (Tarih_Date)xmlSerialize.Deserialize(reader);
+        } 
+
+        public List<Currency> GetCurrencyList()
         {
-            return new List<string>() { "Dollar", "Euro", "Sterlin", "Lari" };
+            return result?.Currency;
         }
     }
 }

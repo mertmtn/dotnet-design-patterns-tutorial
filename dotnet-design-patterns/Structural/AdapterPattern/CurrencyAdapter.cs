@@ -5,25 +5,19 @@
     /// </summary>
     public class CurrencyAdapter : ICurrencyService
     {
-        CurrencyExternal _currencyService;
-        public CurrencyAdapter()
-        {
-            _currencyService = new CurrencyExternal();
-        }
+        private readonly CurrencyExternal _currencyService;
 
-        public double ConvertMoney(double unit, string currency)
+        public CurrencyAdapter(CurrencyExternal currencyService)
         {
-            return _currencyService.Convert(unit, currency);
-        }
+            _currencyService = currencyService;
+        } 
 
         public List<string> GetCurrencies()
         {
-            return _currencyService.GetCurrencyList();
-        }
-
-        public double GetCurrencyForToday(string currency)
-        {
-            return _currencyService.GetCurrencyValue(currency);
+            var resultList = new List<string>();
+            var currencyList = _currencyService.GetCurrencyList();
+            currencyList.ForEach(x => resultList.Add(x.CurrencyName));
+            return resultList;
         }
     }
 }
